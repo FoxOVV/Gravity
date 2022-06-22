@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Gravity</string>
+
+    <!--MAinMenuScene-->
+    <string name="txt_mainMenu_nameGame">Гравитация</string>
+    <string name="txt_mainMenu_newGame">Новая игра</string>
+    <string name="txt_mainMenu_settings">Настройки</string>
+    <string name="txt_mainMenu_results">Результаты</string>
+    <string name="txt_mainMenu_exitGame">Выход из игры</string>
+
+    <!--GameScene-->
+    <string name="txt_gameScene_stateReady_ready">Вы готовы?</string>
+    <string name="txt_gameScene_stateGameOver_gameOver">GAME OVER?</string>
+    <string name="txt_gameScene_stateGameOver_restart">Начать заново</string>
+    <string name="txt_gameScene_stateGameOver_exit">Главное меню</string>
+    <string name="txt_gameScene_stateGameOver_distance">Пройденная дистанция</string>
+
+    <string name="txt_distance_topDistance">Лучшие результаты</string>
+
+    <!--GameScene HUD-->
+    <string name="txt_hud_passedDistance">Пройдено</string>
+    <string name="txt_hud_currentSpeedPlayer">Скорость</string>
+    <string name="txt_hud_currentShieldsPlayer">Щиты</string>
+</resources>
