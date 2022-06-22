@@ -27,7 +27,7 @@ public class Enemy extends ObjectFW {
         switch (enemyType) {
             case 1:
                 speed = UtilRandomFW.getGap(1,6);
-                animEnemy = new AnimationFW(8, UtilResourse.spriteEnemy.get(0),
+                animEnemy = new AnimationFW(10, UtilResourse.spriteEnemy.get(0),
                         UtilResourse.spriteEnemy.get(1),
                         UtilResourse.spriteEnemy.get(2),
                         UtilResourse.spriteEnemy.get(3));

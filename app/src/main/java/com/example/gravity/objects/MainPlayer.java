@@ -151,6 +151,7 @@ public class MainPlayer extends ObjectFW {
         hitEnemy = true;
         timerShieldHit.startTime();
         if (shieldsPlayer<=0) {
+            UtilResourse.explode.play(1);
             isGameOver = true;
             timerGameOver.startTime();
         }

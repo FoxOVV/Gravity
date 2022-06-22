@@ -84,5 +84,9 @@ public class LoaderAssets {
 
     private void loadAudio(CoreFW coreFW) {
         UtilResourse.gameMusic = coreFW.getAudioFW().newMusic("background_music.mp3");
+
+        UtilResourse.hit = coreFW.getAudioFW().newSound("hit.ogg");
+        UtilResourse.explode = coreFW.getAudioFW().newSound("explode.ogg");
+        UtilResourse.touch = coreFW.getAudioFW().newSound("touch.ogg");
     }
 }
