@@ -1,6 +1,7 @@
 package com.example.gravity.generators;
 
 import com.example.gravity.objects.Enemy;
+import com.example.gravity.objects.Protector;
 import com.example.my_framework.GraphicsFW;
 
 import java.util.ArrayList;

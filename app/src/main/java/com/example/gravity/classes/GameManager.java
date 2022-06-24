@@ -3,6 +3,7 @@ package com.example.gravity.classes;
 import com.example.gravity.Main;
 import com.example.gravity.generators.GeneratorBackground;
 import com.example.gravity.generators.GeneratorEnemy;
+import com.example.gravity.generators.GeneratorGifts;
 import com.example.gravity.objects.HUD;
 import com.example.gravity.objects.MainPlayer;
 import com.example.gravity.utilites.UtilResourse;
@@ -25,6 +26,7 @@ public class GameManager {
     MainPlayer mainPlayer;
     GeneratorBackground generatorBackground;
     GeneratorEnemy generatorEnemy;
+    GeneratorGifts generatorGifts;
     HUD hud;
 
     public int getPassedDistance() {
@@ -41,6 +43,7 @@ public class GameManager {
         mainPlayer = new MainPlayer(coreFW,maxScreenX,maxScreenY,minScreenY);
         generatorBackground = new GeneratorBackground(maxScreenX, maxScreenY,minScreenY);
         generatorEnemy = new GeneratorEnemy(maxScreenX, maxScreenY, minScreenY);
+        generatorGifts = new GeneratorGifts(maxScreenX, maxScreenY, minScreenY);
 
         gameOver = false;
     }
@@ -49,6 +52,7 @@ public class GameManager {
         mainPlayer.update();
         generatorBackground.update(mainPlayer.getSpeedPlayer());
         generatorEnemy.update(mainPlayer.getSpeedPlayer());
+        generatorGifts.update(mainPlayer.getSpeedPlayer());
 
         passedDistance += mainPlayer.getSpeedPlayer();
         currentSpeedPlayer = (int) mainPlayer.getSpeedPlayer()*60;
@@ -63,6 +67,7 @@ public class GameManager {
         mainPlayer.drawing(graphicsFW);
         generatorBackground.drawing(graphicsFW);
         generatorEnemy.drawing(graphicsFW);
+        generatorGifts.drawing(graphicsFW);
         hud.drawing(graphicsFW);
     }
 
@@ -73,6 +78,14 @@ public class GameManager {
                 mainPlayer.hitEnemy();
                 generatorEnemy.hitPlayer(generatorEnemy.enemyArrayList.get(i));
             }
+            if (CollisionDetectFW.collisionDetect(mainPlayer,generatorGifts.getProtector())) {
+                hitPlayerWithProtector();
+            }
         }
+    }
+
+    private void hitPlayerWithProtector() {
+        mainPlayer.hitProtector();
+        generatorGifts.hitProtectorWithPlayer();
     }
 }
