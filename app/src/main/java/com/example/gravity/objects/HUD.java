@@ -7,31 +7,31 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 
 public class HUD {
-    private int passedDistance;
-    private int currentSpeedPlayer;
-    private int currentShieldsPlayer;
+    private int mPassedDistance;
+    private int mCurrentSpeedPlayer;
+    private int mCurrentShieldsPlayer;
 
-    CoreFW coreFW;
+    private final CoreFW mCoreFW;
 
     private final int HEIGHT_HUD = 50;
 
     public HUD(CoreFW coreFW) {
-        this.coreFW = coreFW;
+        this.mCoreFW = coreFW;
     }
 
     public void update(int passedDistance, int currentSpeedPlayer, int currentShieldsPlayer) {
-        this.passedDistance         = passedDistance;
-        this.currentSpeedPlayer     = currentSpeedPlayer;
-        this.currentShieldsPlayer   = currentShieldsPlayer;
+        this.mPassedDistance = passedDistance;
+        this.mCurrentSpeedPlayer = currentSpeedPlayer;
+        this.mCurrentShieldsPlayer = currentShieldsPlayer;
     }
 
     public void drawing(GraphicsFW graphicsFW) {
         graphicsFW.drawLine(0,HEIGHT_HUD,graphicsFW.getWidthFrameBuffer(),HEIGHT_HUD,Color.WHITE);
-        graphicsFW.drawText(coreFW.getString(R.string.txt_hud_passedDistance)+":"+passedDistance,
+        graphicsFW.drawText(mCoreFW.getString(R.string.txt_hud_passedDistance)+":"+ mPassedDistance,
                 10,30,Color.GREEN,25,null);
-        graphicsFW.drawText(coreFW.getString(R.string.txt_hud_currentSpeedPlayer)+":"+currentSpeedPlayer,
+        graphicsFW.drawText(mCoreFW.getString(R.string.txt_hud_currentSpeedPlayer)+":"+ mCurrentSpeedPlayer,
                 350,30,Color.GREEN,25,null);
-        graphicsFW.drawText(coreFW.getString(R.string.txt_hud_currentShieldsPlayer)+":"+currentShieldsPlayer,
+        graphicsFW.drawText(mCoreFW.getString(R.string.txt_hud_currentShieldsPlayer)+":"+ mCurrentShieldsPlayer,
                 700,30,Color.GREEN,25,null);
     }
 

@@ -1,32 +1,29 @@
 package com.example.gravity.generators;
 
 import com.example.gravity.objects.Enemy;
-import com.example.gravity.objects.Protector;
 import com.example.my_framework.GraphicsFW;
 
 import java.util.ArrayList;
 
 public class GeneratorEnemy {
-    private int maxScreenX;
-    private int maxScreenY;
-    private int minScreenX;
-    private int minScreenY;
+    private final int mMaxScreenX;
+    private final int mMaxScreenY;
+    private final int mMinScreenY;
 
     public ArrayList<Enemy> enemyArrayList;
 
     public GeneratorEnemy(int sceneWidth, int sceneHeight, int minScreenY) {
-        this.maxScreenX = sceneWidth;
-        this.maxScreenY = sceneHeight;
-        this.minScreenX = 0;
-        this.minScreenY = minScreenY;
+        this.mMaxScreenX = sceneWidth;
+        this.mMaxScreenY = sceneHeight;
+        this.mMinScreenY = minScreenY;
 
         enemyArrayList = new ArrayList<>();
     }
 
     public void update(double speedPlayer) {
         if (enemyArrayList.size()<3) {
-            int amountEnemy = 3-enemyArrayList.size();
-            addEnemy(speedPlayer,amountEnemy);
+            int amountEnemy = 3- enemyArrayList.size();
+            addEnemy(amountEnemy);
         }
 
         for (int i = 0; i < enemyArrayList.size(); i++) {
@@ -34,9 +31,9 @@ public class GeneratorEnemy {
         }
     }
 
-    public void addEnemy(double speedPlayer, int amountEnemy) {
+    public void addEnemy(int amountEnemy) {
         for (int i = 0; i < amountEnemy; i++) {
-            enemyArrayList.add(new Enemy(maxScreenX,maxScreenY,minScreenY,1));
+            enemyArrayList.add(new Enemy(mMaxScreenX, mMaxScreenY, mMinScreenY,1));
         }
     }
 

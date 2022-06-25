@@ -32,9 +32,7 @@ public class SettingsGame {
             }
 
             if (distance[i]<values) {
-                for (int j = 4; j > i; j--) {
-                    distance[j]=distance[j-1];
-                }
+                System.arraycopy(distance, i, distance, i + 1, 4 - i);
                 distance[i] = values;
                 break;
             }
