@@ -10,7 +10,7 @@ public class GeneratorEnemy {
     private final int mMaxScreenY;
     private final int mMinScreenY;
 
-    public ArrayList<Enemy> enemyArrayList;
+    public final ArrayList<Enemy> enemyArrayList;
 
     public GeneratorEnemy(int sceneWidth, int sceneHeight, int minScreenY) {
         this.mMaxScreenX = sceneWidth;

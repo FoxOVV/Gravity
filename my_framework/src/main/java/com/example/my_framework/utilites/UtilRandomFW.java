@@ -5,12 +5,10 @@ import java.util.Random;
 public class UtilRandomFW {
     public static int getCasualNumber(int number) {
         Random random = new Random();
-        int casualNumber = random.nextInt(number);
-        return casualNumber;
+        return random.nextInt(number);
     }
 
     public static int getGap(int minNumber, int maxNumber) {
-        int gap = (int) ((Math.random() * ++maxNumber) + minNumber);
-        return gap;
+        return (int) ((Math.random() * ++maxNumber) + minNumber);
     }
 }

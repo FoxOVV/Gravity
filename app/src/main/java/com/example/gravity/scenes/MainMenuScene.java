@@ -3,7 +3,7 @@ package com.example.gravity.scenes;
 import android.graphics.Color;
 
 import com.example.gravity.R;
-import com.example.gravity.utilites.UtilResourse;
+import com.example.gravity.utilites.UtilResource;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 
@@ -18,12 +18,12 @@ public class MainMenuScene extends SceneFW {
         //В диапазоне от 20 до 119 по X и от 251 до 300 по Y
         if (coreFW.getTouchListenerFW().getTouchUp(20,300,220,50)) {
             coreFW.setScene(new GameScene(coreFW));
-            UtilResourse.sTouch.play(1);
+            UtilResource.sTouch.play(1);
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(20,400,220,50)) {
             coreFW.setScene(new TopDistance(coreFW));
-            UtilResourse.sTouch.play(1);
+            UtilResource.sTouch.play(1);
         }
     }
 

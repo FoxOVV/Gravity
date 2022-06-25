@@ -1,66 +1,67 @@
 package com.example.my_framework;
 
 import android.graphics.Bitmap;
-import android.util.Log;
-
-import com.example.my_framework.GraphicsFW;
 
 // Этот класс можно было реализовать в GraphicsFW;
 public class AnimationFW {
 
-    double speedAnimation;
-    int delayIndex;
-    int countFrames;
-    int frames;
+    private double mSpeedAnimation;
+    private int mDelayIndex;
+    private int mCurrentFrame;
+    private int mFramesCount;
 
-    Bitmap sprite;
-    Bitmap sprite1;
-    Bitmap sprite2;
-    Bitmap sprite3;
-    Bitmap sprite4;
+    private Bitmap mSprite;
+    private Bitmap mSprite1;
+    private Bitmap mSprite2;
+    private Bitmap mSprite3;
+    private Bitmap mSprite4;
 
     public AnimationFW(double speedAnimation, Bitmap sprite1, Bitmap sprite2, Bitmap sprite3, Bitmap sprite4) {
+        init(speedAnimation, sprite1, sprite2, sprite3, sprite4);
+    }
 
-        sprite = sprite1;
+    private void init(double speedAnimation, Bitmap sprite1, Bitmap sprite2, Bitmap sprite3, Bitmap sprite4) {
+        mSprite = sprite1;
 
-        this.speedAnimation = speedAnimation;
-        this.sprite1 = sprite1;
-        this.sprite2 = sprite2;
-        this.sprite3 = sprite3;
-        this.sprite4 = sprite4;
+        this.mSpeedAnimation = speedAnimation;
+        this.mSprite1 = sprite1;
+        this.mSprite2 = sprite2;
+        this.mSprite3 = sprite3;
+        this.mSprite4 = sprite4;
 
-        frames = 3;
+        mFramesCount = 3;
+        mDelayIndex = 0;
     }
 
     public void runAnimation() {
-        delayIndex++;
-        if (delayIndex>speedAnimation) {
-            delayIndex = 0;
+        mDelayIndex++;
+        if (mDelayIndex > mSpeedAnimation) {
+            mDelayIndex = 0;
             nextFrame();
         }
     }
 
     public void nextFrame() {
-        if (countFrames == 0) {
-            sprite = sprite1;
+        if (mCurrentFrame == 0) {
+            mSprite = mSprite1;
         }
-        if (countFrames == 1) {
-            sprite = sprite2;
+        if (mCurrentFrame == 1) {
+            mSprite = mSprite2;
         }
-        if (countFrames == 2) {
-            sprite = sprite3;
+        if (mCurrentFrame == 2) {
+            mSprite = mSprite3;
         }
-        if (countFrames == 3) {
-            sprite = sprite4;
+        if (mCurrentFrame == 3) {
+            mSprite = mSprite4;
         }
 
-        countFrames++;
-        if (countFrames > frames) {
-            countFrames = 0;
+        mCurrentFrame++;
+        if (mCurrentFrame > mFramesCount) {
+            mCurrentFrame = 0;
         }
     }
 
     public void drawingAnimation(GraphicsFW graphicsFW, int x, int y) {
-        graphicsFW.drawTexture(sprite,x,y);
+        graphicsFW.drawTexture(mSprite,x,y);
     }
 }

@@ -1,15 +1,11 @@
 package com.example.my_framework;
 
-import android.util.Log;
-
-import java.util.Date;
-
 public abstract class SceneFW {
-    public GraphicsFW graphicsFW;
-    public CoreFW coreFW;
+    public final GraphicsFW graphicsFW;
+    public final CoreFW coreFW;
 
-    public int sceneWidth;
-    public int sceneHeight;
+    public final int sceneWidth;
+    public final int sceneHeight;
 
     public SceneFW(CoreFW coreFW) {
         this.coreFW = coreFW;

@@ -7,7 +7,7 @@ import com.example.my_framework.AnimationFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.ObjectFW;
-import com.example.gravity.utilites.UtilResourse;
+import com.example.gravity.utilites.UtilResource;
 import com.example.my_framework.utilites.UtilTimerDelay;
 
 public class MainPlayer extends ObjectFW {
@@ -19,7 +19,7 @@ public class MainPlayer extends ObjectFW {
     private AnimationFW mAnimMainPlayerBoost;
     private AnimationFW mAnimMainPlayerShieldsOn;
     private AnimationFW mAnimMainPlayerShieldsOnBoost;
-    private AnimationFW mAnimExplosinPlayer;
+    private AnimationFW mAnimExplosionPlayer;
     private CoreFW mCoreFW;
 
     private UtilTimerDelay mTimerShieldHit;
@@ -49,7 +49,7 @@ public class MainPlayer extends ObjectFW {
         mIsGameOver = false;
         sShieldsOn = false;
 
-        radius = UtilResourse.sSpritePlayer.get(0).getHeight()/2f;
+        radius = UtilResource.sSpritePlayer.get(0).getHeight()/2f;
 
         mTimerShieldHit = new UtilTimerDelay();
         mTimerGameOver = new UtilTimerDelay();
@@ -58,35 +58,35 @@ public class MainPlayer extends ObjectFW {
         this.mCoreFW = coreFW;
         this.maxScreenX = maxScreenX;
         //Точка отчета у картинок/спрайтов - это верхний левый угол. Минусуем высоту спрайта, чтобы картинка не провалилась под экран
-        this.maxScreenY = maxScreenY -UtilResourse.sSpritePlayer.get(0).getHeight();
+        this.maxScreenY = maxScreenY - UtilResource.sSpritePlayer.get(0).getHeight();
         this.minScreenY = minScreenY;
     }
 
     public void initAnimation() {
-        mAnimMainPlayer = new AnimationFW(speed, UtilResourse.sSpritePlayer.get(0),
-                UtilResourse.sSpritePlayer.get(1),
-                UtilResourse.sSpritePlayer.get(2),
-                UtilResourse.sSpritePlayer.get(3));
+        mAnimMainPlayer = new AnimationFW(speed, UtilResource.sSpritePlayer.get(0),
+                UtilResource.sSpritePlayer.get(1),
+                UtilResource.sSpritePlayer.get(2),
+                UtilResource.sSpritePlayer.get(3));
 
-        mAnimMainPlayerBoost = new AnimationFW(speed, UtilResourse.sSpritePlayerBoost.get(0),
-                UtilResourse.sSpritePlayerBoost.get(1),
-                UtilResourse.sSpritePlayerBoost.get(2),
-                UtilResourse.sSpritePlayerBoost.get(3));
+        mAnimMainPlayerBoost = new AnimationFW(speed, UtilResource.sSpritePlayerBoost.get(0),
+                UtilResource.sSpritePlayerBoost.get(1),
+                UtilResource.sSpritePlayerBoost.get(2),
+                UtilResource.sSpritePlayerBoost.get(3));
 
-        mAnimMainPlayerShieldsOn = new AnimationFW(speed, UtilResourse.sSpritePlayerShieldsOn.get(0),
-                UtilResourse.sSpritePlayerShieldsOn.get(1),
-                UtilResourse.sSpritePlayerShieldsOn.get(2),
-                UtilResourse.sSpritePlayerShieldsOn.get(3));
+        mAnimMainPlayerShieldsOn = new AnimationFW(speed, UtilResource.sSpritePlayerShieldsOn.get(0),
+                UtilResource.sSpritePlayerShieldsOn.get(1),
+                UtilResource.sSpritePlayerShieldsOn.get(2),
+                UtilResource.sSpritePlayerShieldsOn.get(3));
 
-        mAnimMainPlayerShieldsOnBoost = new AnimationFW(speed, UtilResourse.sSpritePlayerShieldsOnBoost.get(0),
-                UtilResourse.sSpritePlayerShieldsOnBoost.get(1),
-                UtilResourse.sSpritePlayerShieldsOnBoost.get(2),
-                UtilResourse.sSpritePlayerShieldsOnBoost.get(3));
+        mAnimMainPlayerShieldsOnBoost = new AnimationFW(speed, UtilResource.sSpritePlayerShieldsOnBoost.get(0),
+                UtilResource.sSpritePlayerShieldsOnBoost.get(1),
+                UtilResource.sSpritePlayerShieldsOnBoost.get(2),
+                UtilResource.sSpritePlayerShieldsOnBoost.get(3));
 
-        mAnimExplosinPlayer = new AnimationFW(speed, UtilResourse.sSpriteExplosinPlayer.get(0),
-                UtilResourse.sSpriteExplosinPlayer.get(1),
-                UtilResourse.sSpriteExplosinPlayer.get(2),
-                UtilResourse.sSpriteExplosinPlayer.get(3));
+        mAnimExplosionPlayer = new AnimationFW(speed, UtilResource.sSpriteExplosionPlayer.get(0),
+                UtilResource.sSpriteExplosionPlayer.get(1),
+                UtilResource.sSpriteExplosionPlayer.get(2),
+                UtilResource.sSpriteExplosionPlayer.get(3));
     }
 
     public void update() {
@@ -105,11 +105,11 @@ public class MainPlayer extends ObjectFW {
         updateBoosting();
 
         hitBox = new Rect(x,y,
-                UtilResourse.sSpritePlayer.get(0).getWidth(),
-                UtilResourse.sSpritePlayer.get(0).getHeight());
+                UtilResource.sSpritePlayer.get(0).getWidth(),
+                UtilResource.sSpritePlayer.get(0).getHeight());
 
         if (mIsGameOver) {
-            mAnimExplosinPlayer.runAnimation();
+            mAnimExplosionPlayer.runAnimation();
         }
     }
 
@@ -176,12 +176,12 @@ public class MainPlayer extends ObjectFW {
                 }
             } else {
                 if (!sShieldsOn) {
-                    graphicsFW.drawTexture(UtilResourse.sShieldHitEnemy, x, y);
+                    graphicsFW.drawTexture(UtilResource.sShieldHitEnemy, x, y);
                     mHitEnemy = !mTimerShieldHit.timerDelay(1);
                 }
             }
         } else {
-            mAnimExplosinPlayer.drawingAnimation(graphicsFW,x,y);
+            mAnimExplosionPlayer.drawingAnimation(graphicsFW,x,y);
             if (mTimerGameOver.timerDelay(0.5)) {
                 GameManager.sGameOver = true;
             }
@@ -202,7 +202,7 @@ public class MainPlayer extends ObjectFW {
             mHitEnemy = true;
             mTimerShieldHit.startTime();
             if (mShieldsPlayer <= 0) {
-                UtilResourse.sExplode.play(1);
+                UtilResource.sExplode.play(1);
                 mIsGameOver = true;
                 mTimerGameOver.startTime();
             }

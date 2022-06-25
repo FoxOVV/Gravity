@@ -7,7 +7,7 @@ import com.example.my_framework.SoundFW;
 
 import java.util.ArrayList;
 
-public class UtilResourse {
+public class UtilResource {
     public static Bitmap sTextureAtlas2;
     public static ArrayList<Bitmap> sSpritePlayer;
     public static ArrayList<Bitmap> sSpritePlayerBoost;
@@ -18,7 +18,7 @@ public class UtilResourse {
 
     public static ArrayList<Bitmap> sSpriteEnemy;
     public static Bitmap sShieldHitEnemy;
-    public static ArrayList<Bitmap> sSpriteExplosinPlayer;
+    public static ArrayList<Bitmap> sSpriteExplosionPlayer;
 
     public static MusicFW sGameMusic;
 

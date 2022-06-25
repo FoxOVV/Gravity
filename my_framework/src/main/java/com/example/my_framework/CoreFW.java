@@ -4,107 +4,93 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Date;
-
 public class CoreFW extends AppCompatActivity {
-    //Экран устройства
-    private Display display;
-    private Point sizeDisplay;
-
-    //Фрейм
-    private Bitmap frameBuffer;
-    private final float FRAME_BUFFER_WIDTH = 800;
-    private final float FRAME_BUFFER_HEIGHT = 600;
-
-    //Коэфициента отношения размера фрейма к размерам экрана
-    private float sceneWidth;
-    private float sceneHeight;
 
     //Другие классы фреймворка
-    private LoopFW loopFW;
-    private SceneFW sceneFW;
-    private GraphicsFW graphicsFW;
-    private TouchListenerFW touchListenerFW;
+    private LoopFW mLoopFW;
+    private SceneFW mSceneFW;
+    private GraphicsFW mGraphicsFW;
+    private TouchListenerFW mTouchListenerFW;
 
-    //Статусы работы фрейма
-    private boolean stateOnPause;
-    private boolean stateOnResume;
+    private SharedPreferences mSharedPreferences;
 
-    private SharedPreferences sharedPreferences;
-    private final String SETTINGS = "settings";
-
-    private AudioFW audioFW;
+    private AudioFW mAudioFW;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sharedPreferences = getSharedPreferences(SETTINGS,MODE_PRIVATE);
-
         //Экран не тухнет и не уходит в блокировку пока жива эта активность
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        sizeDisplay = new Point();
+        init();
 
-        display = getWindowManager().getDefaultDisplay();
-        display.getSize(sizeDisplay);
+        setContentView(mLoopFW);
+    }
 
-        frameBuffer = Bitmap.createBitmap((int)FRAME_BUFFER_WIDTH,(int)FRAME_BUFFER_HEIGHT,Bitmap.Config.ARGB_8888);
+    private void init() {
+        String SETTINGS = "settings";
+        mSharedPreferences = getSharedPreferences(SETTINGS,MODE_PRIVATE);
 
-        sceneWidth  = FRAME_BUFFER_WIDTH/sizeDisplay.x;
-        sceneHeight = FRAME_BUFFER_HEIGHT/sizeDisplay.y;
+        Point mSizeDisplay = new Point();
 
-        audioFW = new AudioFW(this);
+        //Экран устройства
+        Display mDisplay = getWindowManager().getDefaultDisplay();
+        mDisplay.getSize(mSizeDisplay);
 
-        loopFW      = new LoopFW(this, frameBuffer);
-        graphicsFW  = new GraphicsFW(getAssets(), frameBuffer);
+        //Фрейм
+        float FRAME_BUFFER_WIDTH = 800;
+        float FRAME_BUFFER_HEIGHT = 600;
+        Bitmap mFrameBuffer = Bitmap.createBitmap((int) FRAME_BUFFER_WIDTH, (int) FRAME_BUFFER_HEIGHT, Bitmap.Config.ARGB_8888);
 
-        touchListenerFW = new TouchListenerFW(loopFW, sceneWidth, sceneHeight);
+        //Коэфициента отношения размера фрейма к размерам экрана
+        float mSceneWidth = FRAME_BUFFER_WIDTH / mSizeDisplay.x;
+        float mSceneHeight = FRAME_BUFFER_HEIGHT / mSizeDisplay.y;
 
-        sceneFW = getStartScene();
+        mAudioFW = new AudioFW(this);
 
-        stateOnPause = false;
-        stateOnResume = false;
+        mLoopFW = new LoopFW(this, mFrameBuffer);
+        mGraphicsFW = new GraphicsFW(getAssets(), mFrameBuffer);
 
-        setContentView(loopFW);
+        mTouchListenerFW = new TouchListenerFW(mLoopFW, mSceneWidth, mSceneHeight);
+
+        mSceneFW = getStartScene();
     }
 
     public CoreFW() {
     }
 
     public AudioFW getAudioFW() {
-        return audioFW;
+        return mAudioFW;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        sceneFW.resume();
-        loopFW.startGame();
+        mSceneFW.resume();
+        mLoopFW.startGame();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stateOnPause = true;
 
-        sceneFW.pause();
-        loopFW.stopGame();
+        mSceneFW.pause();
+        mLoopFW.stopGame();
 
         if (isFinishing()) {
-            sceneFW.dispose();
+            mSceneFW.dispose();
         }
     }
 
     public GraphicsFW getGraphicsFW () {
-        return graphicsFW;
+        return mGraphicsFW;
     }
 
     public void setScene(SceneFW sceneFW) {
@@ -112,26 +98,26 @@ public class CoreFW extends AppCompatActivity {
             throw new IllegalArgumentException("Не возможно загрузить сцену");
         }
 
-        this.sceneFW.pause();
-        this.sceneFW.dispose();
+        this.mSceneFW.pause();
+        this.mSceneFW.dispose();
 
         sceneFW.resume();
         sceneFW.update();
 
-        this.sceneFW = sceneFW;
+        this.mSceneFW = sceneFW;
     }
 
     public SceneFW getCurrentScene() {
-        return sceneFW;
+        return mSceneFW;
     }
 
     public SceneFW getStartScene() {
-        return sceneFW;
+        return mSceneFW;
     }
 
     public TouchListenerFW getTouchListenerFW() {
-        return touchListenerFW;
+        return mTouchListenerFW;
     }
 
-    public SharedPreferences getSharedPreferences() { return sharedPreferences; }
+    public SharedPreferences getSharedPreferences() { return mSharedPreferences; }
 }

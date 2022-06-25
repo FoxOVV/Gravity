@@ -1,18 +1,16 @@
 package com.example.my_framework.utilites;
 
 public class UtilTimerDelay {
-    double startTime;
-    double nowTime;
-    double elapsedTime;
-    final double SECOND = 1000000000;
+    private double mStartTime;
+    private final double SECOND = 1000000000;
 
     public void startTime() {
-        startTime = System.nanoTime()/SECOND;
+        mStartTime = System.nanoTime()/SECOND;
     }
 
     public boolean timerDelay(double second) {
-        nowTime = System.nanoTime()/SECOND;
-        elapsedTime = nowTime - startTime;
-        return elapsedTime > second;
+        double mNowTime = System.nanoTime() / SECOND;
+        double mElapsedTime = mNowTime - mStartTime;
+        return mElapsedTime > second;
     }
 }

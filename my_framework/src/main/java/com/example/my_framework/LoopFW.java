@@ -1,41 +1,44 @@
 package com.example.my_framework;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.Date;
-
-public class LoopFW  extends SurfaceView implements Runnable{
+@SuppressLint("ViewConstructor")
+public class LoopFW extends SurfaceView implements Runnable{
 
     //Нужно обновлять 60 раз в секунду
     private final float FPS = 60;
     //Ярд наносекунд в 1 секунде
     private final float SECOND = 1000000000;
     //Каждые сколько наносекунд необходимо обновлять игру
-    private final float UPDATE_TIME = SECOND/FPS;
+    protected final float UPDATE_TIME = SECOND/FPS;
 
-    CoreFW coreFW;
-    Bitmap frameBuffer;
-    SurfaceHolder surfaceHolder;
+    private CoreFW mCoreFW;
+    private Bitmap mFrameBuffer;
+    private SurfaceHolder mSurfaceHolder;
 
-    Thread gameThread = null;
-    private boolean running = false;
+    private Thread mGameThread = null;
+    private boolean mRunning = false;
 
-    Canvas canvas;
-    Rect rect;
+    private Canvas mCanvas;
+    private Rect mRect;
 
     public LoopFW(CoreFW coreFW, Bitmap frameBuffer) {
         super(coreFW);
-        this.coreFW = coreFW;
-        this.frameBuffer = frameBuffer;
-        this.surfaceHolder = getHolder();
+        init(coreFW, frameBuffer);
+    }
 
-        rect = new Rect();
-        canvas = new Canvas();
+    private void init(CoreFW coreFW, Bitmap frameBuffer) {
+        this.mCoreFW = coreFW;
+        this.mFrameBuffer = frameBuffer;
+        this.mSurfaceHolder = getHolder();
+
+        mRect = new Rect();
+        mCanvas = new Canvas();
     }
 
     @Override
@@ -43,7 +46,7 @@ public class LoopFW  extends SurfaceView implements Runnable{
         float lastTime = System.nanoTime();
         float delta = 0;
 
-        while(running) {
+        while(mRunning) {
             float nowTime = System.nanoTime();
             float elapsedTime = nowTime - lastTime;
             lastTime = nowTime;
@@ -58,36 +61,36 @@ public class LoopFW  extends SurfaceView implements Runnable{
     }
 
     private void updateGame() {
-        coreFW.getCurrentScene().update();
+        mCoreFW.getCurrentScene().update();
     }
 
     private void drawingGame() {
-        if (surfaceHolder.getSurface().isValid()) {
-            canvas = surfaceHolder.lockCanvas();
-            canvas.getClipBounds(rect);
-            canvas.drawBitmap(frameBuffer,null,rect,null);
-            coreFW.getCurrentScene().drawing();
-            surfaceHolder.unlockCanvasAndPost(canvas);
+        if (mSurfaceHolder.getSurface().isValid()) {
+            mCanvas = mSurfaceHolder.lockCanvas();
+            mCanvas.getClipBounds(mRect);
+            mCanvas.drawBitmap(mFrameBuffer,null, mRect,null);
+            mCoreFW.getCurrentScene().drawing();
+            mSurfaceHolder.unlockCanvasAndPost(mCanvas);
         }
     }
 
     public void startGame() {
-        if(running) {
+        if(mRunning) {
             return;
         }
-        running = true;
-        gameThread = new Thread(this);
-        gameThread.start();
+        mRunning = true;
+        mGameThread = new Thread(this);
+        mGameThread.start();
     }
 
     public void stopGame() {
-        if (!running){
+        if (!mRunning){
             return;
         }
-        running = false;
+        mRunning = false;
 
         try {
-            gameThread.join();
+            mGameThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

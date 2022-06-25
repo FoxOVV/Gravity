@@ -5,7 +5,7 @@ import com.example.gravity.generators.GeneratorEnemy;
 import com.example.gravity.generators.GeneratorGifts;
 import com.example.gravity.objects.HUD;
 import com.example.gravity.objects.MainPlayer;
-import com.example.gravity.utilites.UtilResourse;
+import com.example.gravity.utilites.UtilResource;
 import com.example.my_framework.CollisionDetectFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
@@ -56,7 +56,7 @@ public class GameManager {
     public void checkHit() {
         for (int i = 0; i < mGeneratorEnemy.enemyArrayList.size(); i++) {
             if (CollisionDetectFW.collisionDetect(mMainPlayer, mGeneratorEnemy.enemyArrayList.get(i))) {
-                UtilResourse.sHit.play(1);
+                UtilResource.sHit.play(1);
                 mMainPlayer.hitEnemy();
                 mGeneratorEnemy.hitPlayer(mGeneratorEnemy.enemyArrayList.get(i));
             }

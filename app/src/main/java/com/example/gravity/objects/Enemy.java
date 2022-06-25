@@ -2,7 +2,7 @@ package com.example.gravity.objects;
 
 import android.graphics.Rect;
 
-import com.example.gravity.utilites.UtilResourse;
+import com.example.gravity.utilites.UtilResource;
 import com.example.my_framework.AnimationFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.ObjectFW;
@@ -19,24 +19,24 @@ public class Enemy extends ObjectFW {
 
     private void init(int maxScreenX, int maxScreenY, int minScreenY) {
         this.maxScreenX = maxScreenX;
-        this.maxScreenY = maxScreenY - UtilResourse.sSpriteEnemy.get(0).getHeight();
+        this.maxScreenY = maxScreenY - UtilResource.sSpriteEnemy.get(0).getHeight();
         this.minScreenX = 0;
         this.minScreenY = minScreenY;
 
         this.x = maxScreenX;
         this.y = UtilRandomFW.getGap(minScreenY, maxScreenY);
 
-        radius = UtilResourse.sSpriteEnemy.get(0).getHeight() / 4f;
+        radius = UtilResource.sSpriteEnemy.get(0).getHeight() / 4f;
     }
 
     private void initTypeEnemy(int enemyType) {
         switch (enemyType) {
             case 1:
                 speed = UtilRandomFW.getGap(1,6);
-                mAnimEnemy = new AnimationFW(10, UtilResourse.sSpriteEnemy.get(0),
-                        UtilResourse.sSpriteEnemy.get(1),
-                        UtilResourse.sSpriteEnemy.get(2),
-                        UtilResourse.sSpriteEnemy.get(3));
+                mAnimEnemy = new AnimationFW(10, UtilResource.sSpriteEnemy.get(0),
+                        UtilResource.sSpriteEnemy.get(1),
+                        UtilResource.sSpriteEnemy.get(2),
+                        UtilResource.sSpriteEnemy.get(3));
                 break;
             case 2:
                 speed = UtilRandomFW.getGap(4,9);
@@ -55,8 +55,8 @@ public class Enemy extends ObjectFW {
         mAnimEnemy.runAnimation();
 
         hitBox = new Rect(x,y,
-                UtilResourse.sSpriteEnemy.get(0).getWidth(),
-                UtilResourse.sSpriteEnemy.get(0).getHeight());
+                UtilResource.sSpriteEnemy.get(0).getWidth(),
+                UtilResource.sSpriteEnemy.get(0).getHeight());
     }
 
     public void drawing(GraphicsFW graphicsFW) {

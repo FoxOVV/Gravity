@@ -5,7 +5,7 @@ import android.graphics.Color;
 import com.example.gravity.R;
 import com.example.gravity.classes.GameManager;
 import com.example.gravity.utilites.SettingsGame;
-import com.example.gravity.utilites.UtilResourse;
+import com.example.gravity.utilites.UtilResource;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 
@@ -21,7 +21,7 @@ public class GameScene extends SceneFW {
     public GameScene(CoreFW coreFW) {
         super(coreFW);
         init(coreFW);
-        UtilResourse.sGameMusic.play(true, 0.3f);
+        UtilResource.sGameMusic.play(true, 0.3f);
     }
 
     private void init(CoreFW coreFW) {
@@ -107,7 +107,7 @@ public class GameScene extends SceneFW {
                 , 250, 200,Color.GREEN, 30,null);
     }
     private void updateStateGameOver() {
-        UtilResourse.sGameMusic.stop();
+        UtilResource.sGameMusic.stop();
         if (coreFW.getTouchListenerFW().getTouchUp(250,360,220,35)) {
             coreFW.setScene(new GameScene(coreFW));
         }
@@ -119,20 +119,20 @@ public class GameScene extends SceneFW {
 
     @Override
     public void pause() {
-        UtilResourse.sGameMusic.stop();
+        UtilResource.sGameMusic.stop();
     }
 
     @Override
     public void resume() {
-        UtilResourse.sGameMusic.play(true, 0.3f);
+        UtilResource.sGameMusic.play(true, 0.3f);
     }
 
     @Override
     public void dispose() {
-        UtilResourse.sGameMusic.stop();
+        UtilResource.sGameMusic.stop();
 
-        UtilResourse.sHit.stop();
-        UtilResourse.sExplode.stop();
-        UtilResourse.sTouch.stop();
+        UtilResource.sHit.stop();
+        UtilResource.sExplode.stop();
+        UtilResource.sTouch.stop();
     }
 }

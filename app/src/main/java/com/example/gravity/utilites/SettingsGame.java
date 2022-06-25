@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import com.example.my_framework.CoreFW;
 
 public class SettingsGame {
-    public static int[] distance = {5000,4000,3000,2000,1000};
+    public static final int[] distance = {5000,4000,3000,2000,1000};
 
     public static void saveSettings(CoreFW coreFW) {
         SharedPreferences.Editor editor = coreFW.getSharedPreferences().edit();

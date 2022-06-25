@@ -3,23 +3,27 @@ package com.example.my_framework;
 import android.media.SoundPool;
 
 public class SoundFW {
-    int sound;
-    SoundPool soundPool;
+    private int mSound;
+    private SoundPool mSoundPool;
 
     public SoundFW(int sound, SoundPool soundPool) {
-        this.sound      = sound;
-        this.soundPool  = soundPool;
+        init(sound, soundPool);
+    }
+
+    private void init(int sound, SoundPool soundPool) {
+        this.mSound = sound;
+        this.mSoundPool = soundPool;
     }
 
     public void play(float volume) {
-        soundPool.play(sound,volume,volume,0,0,1);
+        mSoundPool.play(mSound,volume,volume,0,0,1);
     }
 
     public void stop() {
-        soundPool.stop(sound);
+        mSoundPool.stop(mSound);
     }
 
     public void dispose() {
-        soundPool.unload(sound);
+        mSoundPool.unload(mSound);
     }
 }

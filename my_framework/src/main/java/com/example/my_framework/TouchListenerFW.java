@@ -1,47 +1,50 @@
 package com.example.my_framework;
 
-import android.util.Log;
+import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.Date;
-
 public class TouchListenerFW implements View.OnTouchListener{
-    float touchX;
-    float touchY;
+    private float mTouchX;
+    private float mTouchY;
 
-    boolean isTouchDown;
-    boolean isTouchUp;
+    private boolean mIsTouchDown;
+    private boolean mIsTouchUp;
 
-    float sceneWidth;
-    float sceneHeight;
+    private float mSceneWidth;
+    private float mSceneHeight;
 
     public TouchListenerFW(View view, float sceneWidth, float sceneHeight) {
         view.setOnTouchListener(this);
-        this.sceneWidth = sceneWidth;
-        this.sceneHeight = sceneHeight;
+        init(sceneWidth, sceneHeight);
     }
 
+    private void init(float sceneWidth, float sceneHeight) {
+        this.mSceneWidth = sceneWidth;
+        this.mSceneHeight = sceneHeight;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         synchronized (this) {
-            isTouchDown = false;
-            isTouchUp = false;
+            mIsTouchDown = false;
+            mIsTouchUp = false;
 
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    touchX = event.getX() * sceneWidth;
-                    touchY = event.getY() * sceneHeight;
+                    mTouchX = event.getX() * mSceneWidth;
+                    mTouchY = event.getY() * mSceneHeight;
 
-                    isTouchDown = true;
-                    isTouchUp   = false;
+                    mIsTouchDown = true;
+                    mIsTouchUp = false;
                     break;
                 case MotionEvent.ACTION_UP:
-                    touchX = event.getX() * sceneWidth;
-                    touchY = event.getY() * sceneHeight;
+                    mTouchX = event.getX() * mSceneWidth;
+                    mTouchY = event.getY() * mSceneHeight;
 
-                    isTouchDown = false;
-                    isTouchUp   = true;
+                    mIsTouchDown = false;
+                    mIsTouchUp = true;
                     break;
             }
         }
@@ -50,10 +53,10 @@ public class TouchListenerFW implements View.OnTouchListener{
     }
 
     public boolean getTouchUp(int x, int y, int touchWidth, int touchHeight) {
-        if (isTouchUp) {
+        if (mIsTouchUp) {
             //30>=20&&30<=119&&290<=300&&290>=251
-            if (touchX>=x&&touchX<=x+touchWidth-1&&touchY<=y&&touchY>=y-(touchHeight-1)) {
-                isTouchUp = false;
+            if (mTouchX >=x&& mTouchX <=x+touchWidth-1&& mTouchY <=y&& mTouchY >=y-(touchHeight-1)) {
+                mIsTouchUp = false;
                 return true;
             }
         }
@@ -61,9 +64,9 @@ public class TouchListenerFW implements View.OnTouchListener{
     }
 
     public boolean getTouchDown(int x, int y, int touchWidth, int touchHeight) {
-        if (isTouchDown) {
-            if (touchX>=x&&touchX<=x+touchWidth-1&&touchY<=y&&touchY>=y-(touchHeight-1)) {
-                isTouchDown = false;
+        if (mIsTouchDown) {
+            if (mTouchX >=x&& mTouchX <=x+touchWidth-1&& mTouchY <=y&& mTouchY >=y-(touchHeight-1)) {
+                mIsTouchDown = false;
                 return true;
             }
         }
