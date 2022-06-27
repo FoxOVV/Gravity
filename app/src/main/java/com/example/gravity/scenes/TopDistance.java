@@ -25,6 +25,11 @@ public class TopDistance extends SceneFW {
 
     @Override
     public void update() {
+        if (coreFW.isIsPressedKeyBack()) {
+            coreFW.setIsPressedKeyBack(false);
+            coreFW.setScene(new MainMenuScene(coreFW));
+        }
+
         if (coreFW.getTouchListenerFW().getTouchUp(0,sceneHeight,sceneWidth,sceneHeight)) {
             coreFW.setScene(new MainMenuScene(coreFW));
         }

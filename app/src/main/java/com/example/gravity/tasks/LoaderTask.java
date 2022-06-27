@@ -1,21 +1,95 @@
-package com.example.gravity.classes;
+package com.example.gravity.tasks;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+
+import com.example.gravity.interfaces.TaskCompleteListener;
+import com.example.gravity.scenes.LoaderResourceScene;
+import com.example.gravity.utilites.SettingsGame;
+import com.example.gravity.utilites.UtilResource;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
-import com.example.gravity.utilites.UtilResource;
 
 import java.util.ArrayList;
 
-public class LoaderAssets {
+public class LoaderTask extends AsyncTask<Void,Integer,Void> {
+    @SuppressLint("StaticFieldLeak")
+    private final CoreFW mCoreFW;
+    private final TaskCompleteListener mTaskCompleteListener;
 
-    public LoaderAssets(CoreFW coreFW, GraphicsFW graphicsFW) {
-        loadTexture(graphicsFW);
-        loadSpritePlayer(graphicsFW);
-        loadSpritePlayerShieldsOn(graphicsFW);
-        loadSpriteEnemy(graphicsFW);
-        loadGifts(graphicsFW);
-        loadOther(graphicsFW);
-        loadAudio(coreFW);
+    public LoaderTask(CoreFW coreFW, TaskCompleteListener taskCompleteListener) {
+        mCoreFW = coreFW;
+        mTaskCompleteListener = taskCompleteListener;
+    }
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        loaderAssets();
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void unused) {
+        super.onPostExecute(unused);
+        mTaskCompleteListener.onComplete();
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        LoaderResourceScene.setProgressLoader(values[0]);
+    }
+
+    private void loaderAssets() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadTexture(mCoreFW.getGraphicsFW());
+        publishProgress(200);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadSpritePlayer(mCoreFW.getGraphicsFW());
+        publishProgress(400);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadSpritePlayerShieldsOn(mCoreFW.getGraphicsFW());
+        publishProgress(500);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadSpriteEnemy(mCoreFW.getGraphicsFW());
+        publishProgress(600);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadGifts(mCoreFW.getGraphicsFW());
+        publishProgress(700);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadOther(mCoreFW.getGraphicsFW());
+        publishProgress(750);
+        publishProgress(800);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadAudio(mCoreFW);
     }
 
     private void loadTexture(GraphicsFW graphicsFW) {
@@ -73,6 +147,7 @@ public class LoaderAssets {
 
     public void loadOther(GraphicsFW graphicsFW) {
         UtilResource.sShieldHitEnemy = graphicsFW.newSprite(UtilResource.sTextureAtlas2,266,0,64,69);
+        SettingsGame.loadSettings(mCoreFW);
     }
 
     private void loadAudio(CoreFW coreFW) {

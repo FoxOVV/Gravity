@@ -21,7 +21,9 @@ public class GameScene extends SceneFW {
     public GameScene(CoreFW coreFW) {
         super(coreFW);
         init(coreFW);
-        UtilResource.sGameMusic.play(true, 0.3f);
+        if (SettingsGame.sMusicOn) {
+            UtilResource.sGameMusic.play(true, 0.3f);
+        }
     }
 
     private void init(CoreFW coreFW) {
@@ -77,19 +79,35 @@ public class GameScene extends SceneFW {
     private void drawingStateRunning() {
         graphicsFW.clearScene(Color.BLACK);
         mGameManager.drawing(graphicsFW);
+        if (SettingsGame.sMusicOn) {
+            UtilResource.sGameMusic.play(true, 0.3f);
+        }
     }
     private void updateStateRunning() {
         mGameManager.update();
         if (GameManager.sGameOver) {
             mGameState = GameState.GAME_OVER;
         }
+        if (coreFW.isIsPressedKeyBack()) {
+            mGameState = GameState.PAUSE;
+            coreFW.setIsPressedKeyBack(false);
+            if (SettingsGame.sMusicOn) {
+                UtilResource.sGameMusic.stop();
+            }
+        }
     }
 
     private void drawingStatePause() {
-
+        coreFW.getGraphicsFW().drawText("Пауза",200,300,Color.GREEN,50,null);
     }
     private void updateStatePause() {
+        if (coreFW.getTouchListenerFW().getTouchUp(0,sceneHeight,sceneWidth,sceneHeight)) {
+            mGameState = GameState.RUNNING;
+        }
 
+        if (coreFW.isIsPressedKeyBack()) {
+            coreFW.setScene(new MainMenuScene(coreFW));
+        }
     }
 
     private void drawingStateGameOver() {
@@ -124,15 +142,19 @@ public class GameScene extends SceneFW {
 
     @Override
     public void resume() {
-        UtilResource.sGameMusic.play(true, 0.3f);
+        if (SettingsGame.sMusicOn) {
+            UtilResource.sGameMusic.play(true, 0.3f);
+        }
     }
 
     @Override
     public void dispose() {
-        UtilResource.sGameMusic.stop();
+        if (SettingsGame.sMusicOn) {
+            UtilResource.sGameMusic.stop();
 
-        UtilResource.sHit.stop();
-        UtilResource.sExplode.stop();
-        UtilResource.sTouch.stop();
+            UtilResource.sHit.stop();
+            UtilResource.sExplode.stop();
+            UtilResource.sTouch.stop();
+        }
     }
 }

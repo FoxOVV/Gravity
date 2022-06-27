@@ -3,6 +3,7 @@ package com.example.gravity.objects;
 import android.graphics.Rect;
 
 import com.example.gravity.classes.GameManager;
+import com.example.gravity.utilites.SettingsGame;
 import com.example.my_framework.AnimationFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
@@ -202,7 +203,9 @@ public class MainPlayer extends ObjectFW {
             mHitEnemy = true;
             mTimerShieldHit.startTime();
             if (mShieldsPlayer <= 0) {
-                UtilResource.sExplode.play(1);
+                if (SettingsGame.sSoundOn) {
+                    UtilResource.sExplode.play(1);
+                }
                 mIsGameOver = true;
                 mTimerGameOver.startTime();
             }

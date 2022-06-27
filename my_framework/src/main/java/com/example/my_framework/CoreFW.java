@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ public class CoreFW extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
 
     private AudioFW mAudioFW;
+
+    private boolean mIsPressedKeyBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +64,23 @@ public class CoreFW extends AppCompatActivity {
         mTouchListenerFW = new TouchListenerFW(mLoopFW, mSceneWidth, mSceneHeight);
 
         mSceneFW = getStartScene();
+        mIsPressedKeyBack = false;
+    }
+
+    public boolean isIsPressedKeyBack() {
+        return mIsPressedKeyBack;
+    }
+
+    public void setIsPressedKeyBack(boolean mIsPressedKeyBack) {
+        this.mIsPressedKeyBack = mIsPressedKeyBack;
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK) {
+            mIsPressedKeyBack = true;
+            return true;
+        }
+        return false;
     }
 
     public CoreFW() {

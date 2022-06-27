@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Gravity</string>
+    <string name="loading">Загрузка...</string>
 
     <!--MAinMenuScene-->
     <string name="txt_mainMenu_nameGame">Гравитация</string>
@@ -21,4 +22,10 @@
     <string name="txt_hud_passedDistance">Пройдено</string>
     <string name="txt_hud_currentSpeedPlayer">Скорость</string>
     <string name="txt_hud_currentShieldsPlayer">Щиты</string>
+
+    <!--Settings-->
+    <string name="setting_music">Музыка</string>
+    <string name="setting_sound">Звук</string>
+    <string name="setting_on">Включено</string>
+    <string name="setting_off">Выключено</string>
 </resources>
