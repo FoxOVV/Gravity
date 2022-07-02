@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CoreFW extends AppCompatActivity {
 
+    public static Object get;
     //Другие классы фреймворка
     private LoopFW mLoopFW;
     private SceneFW mSceneFW;

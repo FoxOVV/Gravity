@@ -2,7 +2,11 @@ package com.example.gravity.tasks;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Build;
 
+import androidx.core.content.res.ResourcesCompat;
+
+import com.example.gravity.R;
 import com.example.gravity.interfaces.TaskCompleteListener;
 import com.example.gravity.scenes.LoaderResourceScene;
 import com.example.gravity.utilites.SettingsGame;
@@ -41,11 +45,6 @@ public class LoaderTask extends AsyncTask<Void,Integer,Void> {
     }
 
     private void loaderAssets() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         loadTexture(mCoreFW.getGraphicsFW());
         publishProgress(200);
         try {
@@ -55,37 +54,17 @@ public class LoaderTask extends AsyncTask<Void,Integer,Void> {
         }
         loadSpritePlayer(mCoreFW.getGraphicsFW());
         publishProgress(400);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         loadSpritePlayerShieldsOn(mCoreFW.getGraphicsFW());
         publishProgress(500);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         loadSpriteEnemy(mCoreFW.getGraphicsFW());
         publishProgress(600);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         loadGifts(mCoreFW.getGraphicsFW());
         publishProgress(700);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         loadOther(mCoreFW.getGraphicsFW());
         publishProgress(750);
         publishProgress(800);
         try {
-            Thread.sleep(100);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -148,6 +127,12 @@ public class LoaderTask extends AsyncTask<Void,Integer,Void> {
     public void loadOther(GraphicsFW graphicsFW) {
         UtilResource.sShieldHitEnemy = graphicsFW.newSprite(UtilResource.sTextureAtlas2,266,0,64,69);
         SettingsGame.loadSettings(mCoreFW);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            UtilResource.mainMenuFont = mCoreFW.getResources().getFont(R.font.cuprum);
+        } else {
+            UtilResource.mainMenuFont = ResourcesCompat.getFont(mCoreFW.getApplicationContext(),R.font.cuprum);
+        }
     }
 
     private void loadAudio(CoreFW coreFW) {

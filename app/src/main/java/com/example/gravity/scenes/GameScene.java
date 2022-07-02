@@ -68,7 +68,7 @@ public class GameScene extends SceneFW {
     private void drawingStateReady() {
         graphicsFW.clearScene(Color.BLACK);
         graphicsFW.drawText(coreFW.getString(R.string.txt_gameScene_stateReady_ready),
-                250, 300, Color.WHITE, 60, null);
+                250, 300, Color.WHITE, 60, UtilResource.mainMenuFont);
     }
     private void updateStateReady() {
         if (coreFW.getTouchListenerFW().getTouchUp(0,sceneHeight, sceneWidth, sceneHeight)) {
@@ -98,7 +98,7 @@ public class GameScene extends SceneFW {
     }
 
     private void drawingStatePause() {
-        coreFW.getGraphicsFW().drawText("Пауза",200,300,Color.GREEN,50,null);
+        coreFW.getGraphicsFW().drawText("Пауза",200,300,Color.BLUE,50,UtilResource.mainMenuFont);
     }
     private void updateStatePause() {
         if (coreFW.getTouchListenerFW().getTouchUp(0,sceneHeight,sceneWidth,sceneHeight)) {
@@ -116,13 +116,13 @@ public class GameScene extends SceneFW {
 
         graphicsFW.clearScene(Color.BLACK);
         graphicsFW.drawText(coreFW.getString(R.string.txt_gameScene_stateGameOver_gameOver)
-                , 250, 300,Color.GREEN, 60,null);
+                , 250, 300,Color.BLUE, 60,UtilResource.mainMenuFont);
         graphicsFW.drawText(coreFW.getString(R.string.txt_gameScene_stateGameOver_restart)
-                , 250, 360,Color.GREEN, 30,null);
+                , 250, 360,Color.BLUE, 30,UtilResource.mainMenuFont);
         graphicsFW.drawText(coreFW.getString(R.string.txt_gameScene_stateGameOver_exit)
-                , 250, 420,Color.GREEN, 30,null);
+                , 250, 420,Color.BLUE, 30,UtilResource.mainMenuFont);
         graphicsFW.drawText(coreFW.getString(R.string.txt_gameScene_stateGameOver_distance)+": "+ mGameManager.getPassedDistance()
-                , 250, 200,Color.GREEN, 30,null);
+                , 250, 200,Color.BLUE, 30,UtilResource.mainMenuFont);
     }
     private void updateStateGameOver() {
         UtilResource.sGameMusic.stop();

@@ -1,6 +1,7 @@
 package com.example.gravity.utilites;
 
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 
 import com.example.my_framework.MusicFW;
 import com.example.my_framework.SoundFW;
@@ -25,4 +26,6 @@ public class UtilResource {
     public static SoundFW sHit;
     public static SoundFW sExplode;
     public static SoundFW sTouch;
+    
+    public static Typeface mainMenuFont;
 }
